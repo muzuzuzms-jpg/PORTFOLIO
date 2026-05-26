@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasmina - Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        .cyber-glow-text {
+    text-shadow:
+        0 0 10px rgba(0,255,255,0.7),
+        0 0 20px rgba(0,255,255,0.5),
+        0 0 40px rgba(0,255,255,0.3);
+}
+
+#dropZone {
+    box-shadow:
+        inset 0 0 30px rgba(0,255,255,0.05),
+        0 0 20px rgba(0,255,255,0.05);
+}
+
+#dropZone:hover {
+    transform: scale(1.01);
+    box-shadow:
+        0 0 30px rgba(217,70,239,0.2),
+        0 0 60px rgba(0,255,255,0.15);
+}
+        /* 3D Kub aylanishi */
+        @keyframes spinCube {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+
+            100% {
+                transform: rotateX(360deg) rotateY(360deg);
+            }
+        }
+
+        .animate-spin-cube {
+            animation: spinCube 12s linear infinite;
+        }
+
+        /* Neon Glitch va Kiber Soya effektlari */
+        .cyber-border {
+            border: 1px solid #06b6d4;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.15), inset 0 0 10px rgba(6, 182, 212, 0.05);
+        }
+
+        .cyber-border-purple {
+            border: 1px solid #a855f7;
+            box-shadow: 0 0 10px rgba(168, 85, 247, 0.15);
+        }
+
+        .cyber-glow-text {
+            text-shadow: 0 0 8px rgba(6, 182, 212, 0.6);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background-color: #06b6d4;
+            border-radius: 2px;
+        }
+
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+            transition: opacity 0.5s;
+        }
+        /* 1. Asosiy fon va yorqinlik */
+    .glass-card {
+        background: rgba(18, 24, 42, 0.7); /* Yarim shaffof qora-ko'k fon */
+        backdrop-filter: blur(10px);        /* Orqa fonni xiralashtirish (shisha effekti) */
+        border: 1px solid rgba(56, 189, 248, 0.3); /* Yengil yorqin hoshiya */
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5); /* Chuqurlik beruvchi soya */
+        border-radius: 16px;                 /* Burchaklarni yumshatish */
+        padding: 24px;
+        transition: transform 0.3s ease;
+    }
+
+    /* 2. Hover effekti (sichqonchani olib borganda jonlanishi uchun) */
+    .glass-card:hover {
+        transform: translateY(-5px);
+        border: 1px solid rgba(56, 189, 248, 0.8);
+    }
+    .scanner-circle {
+    width: 220px;
+    height: 220px;
+    border: 2px solid #00ffe1;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 0 15px #00ffe1,
+        inset 0 0 15px #00ffe1;
+}
+
+.scanner-line {
+    position: absolute;
+    width: 2px;
+    height: 50%;
+    background: #00ffe1;
+    left: 50%;
+    bottom: 50%;
+    transform-origin: bottom;
+    animation: rotateScanner 3s linear infinite;
+    box-shadow: 0 0 10px #00ffe1;
+}
+
+@keyframes rotateScanner {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+.skill-card{
+    position:relative;
+    padding:24px;
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid rgba(0,255,255,0.08);
+    background:rgba(10,15,30,0.7);
+    backdrop-filter:blur(12px);
+    transition:0.4s;
+}
+
+.skill-card:hover{
+    transform:translateY(-6px) scale(1.02);
+    border-color:rgba(0,255,255,0.4);
+    box-shadow:
+        0 0 30px rgba(0,255,255,0.12),
+        0 0 60px rgba(217,70,239,0.08);
+}
+
+.skill-icon{
+    width:56px;
+    height:56px;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    letter-spacing:1px;
+    box-shadow:
+        inset 0 0 20px rgba(255,255,255,0.03);
+}
+
+.skill-bar{
+    width:100%;
+    height:10px;
+    border-radius:999px;
+    background:#111827;
+    overflow:hidden;
+    position:relative;
+}
+
+.skill-progress{
+    height:100%;
+    border-radius:999px;
+    position:relative;
+    animation:loadBar 2s ease;
+    box-shadow:
+        0 0 15px currentColor;
+}
+
+.skill-progress::after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    width:20px;
+    height:100%;
+    background:white;
+    opacity:0.6;
+    filter:blur(6px);
+}
+
+@keyframes loadBar{
+    from{
+        width:0;
+    }
+}
+    </style>
+</head>
+
+<body id="appBody"
+    class="bg-[#0b1329] text-slate-100 font-mono overflow-x-hidden antialiased transition-colors duration-300">
+
+    <canvas id="matrixCanvas" class="opacity-15"></canvas>
+
+    <nav class="fixed top-0 left-0 w-full z-50 bg-[#050816]/80 backdrop-blur-xl border-b border-cyan-500/20">
+
+    <div class="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+
+        <div class="text-cyan-400 font-black tracking-widest">
+            JASMINA.PORTFOLIO
+        </div>
+
+        <div class="flex gap-5 text-xs font-bold">
+
+            <a href="#heroSection" class="text-slate-300 hover:text-cyan-400 transition">Home</a>
+            <a href="#projectsSection" class="text-slate-300 hover:text-cyan-400 transition">Projects</a>
+            <a href="#scannerSection" class="text-slate-300 hover:text-cyan-400 transition">Scanner</a>
+            <a href="#courseraSection" class="text-slate-300 hover:text-cyan-400 transition">Certificates</a>
+            <a href="#profileForm" class="text-slate-300 hover:text-cyan-400 transition">Contact</a>
+
+        </div>
+
+
+    </div>
+
+</nav>
+    <div id="cyberOSDashboard" class="container mx-auto px-4 py-6 relative z-10 max-w-7xl">
+
+        <div id="heroSection"
+            class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 border border-cyan-500/30 bg-slate-900/20 relative mb-6 scroll-mt-20">
+            <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div>
+            <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
+            <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400"></div>
+            <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400"></div>
+
+            <div class="lg:col-span-7 flex flex-col space-y-4"> 
+                <div class="flex items-center gap-2">
+                    <span
+                        class="text-[10px] px-2 py-0.5 bg-blue-500/10 text-blue-400 border border-blue-500/30 uppercase font-black tracking-widest">STATUS:
+                        ACTIVE_DEVELOPER</span>
+                    <span class="text-[10px] text-slate-500 font-mono">LOC_ID: 41.3775° N, 60.3586° E</span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight uppercase">Jasmina Aminboyeva</h1>
+                <h2 class="text-xl text-cyan-400 font-bold cyber-glow-text">
+                    &gt; CORE_ENGINEER: <span
+                        class="border-r-2 border-cyan-400 animate-pulse">FRONTEND_ARCHITECTURE</span>
+                </h2>
+                <p class="text-slate-400 text-xs leading-relaxed border-l-2 border-slate-700 pl-4 max-w-xl">
+                    Full-Stack Developerlik muhandisligi yo'nalishi stajori. Hozirda Xiva IT Park markazining yuqori
+                    darajali dasturlash laboratoriyasida tahsil olmoqdaman. Murakkab komponentli gridlar, ma'lumotlar
+                    oqimi va moslashuvchan arxitekturalarni modellashtirishga ixtisoslashganman.
+                </p>
+                <div class="flex flex-wrap gap-3 pt-2">
+                    <a href="#profileForm"
+                        class="px-5 py-2.5 bg-cyan-950/40 border border-cyan-400 text-cyan-400 hover:bg-cyan-500 hover:text-slate-950 font-bold text-xs uppercase tracking-widest transition duration-300">
+                        [ INITIATE_CONTACT ]
+                    </a>
+                    <button onclick="downloadPDFReport()"
+                        class="px-5 py-2.5 border border-slate-700 hover:border-purple-500 text-slate-400 hover:text-purple-400 font-bold text-xs uppercase tracking-widest transition duration-300">
+                        [ GENERATE_CV_REPORT ]
+                    </button>
+                </div>
+            </div>
+
+            <div
+                class="lg:col-span-5 flex flex-col items-center justify-center border border-slate-800/80 bg-slate-950/40 p-4 relative [perspective:1000px] min-h-[220px]">
+                <span class="absolute top-2 right-2 text-[8px] text-slate-600 font-mono">3D_RENDER_ENGINE</span>
+                <div class="relative w-36 h-36 [transform-style:preserve-3d] animate-spin-cube">
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:translateZ(72px)]">
+                        <span class="text-cyan-400 font-black text-xl">HTML5</span></div>
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:rotateY(180deg)_translateZ(72px)]">
+                        <span class="text-cyan-400 font-black text-xl">CSS3</span></div>
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:rotateY(-90deg)_translateZ(72px)]">
+                        <span class="text-cyan-400 font-black text-xl">JS.ES6</span></div>
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:rotateY(90deg)_translateZ(72px)]">
+                        <span class="text-cyan-400 font-bold text-sm text-center">TW_CSS</span></div>
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:rotateX(90deg)_translateZ(72px)]">
+                        <span class="text-cyan-400 font-black text-xl">GIT</span></div>
+                    <div
+                        class="absolute inset-0 bg-slate-900/90 border border-cyan-500 flex items-center justify-center [transform:rotateX(-90deg)_translateZ(72px)]">
+                        <span class="text-cyan-400 font-black text-xl">UI/UX</span></div>
+                </div>
+            </div>
+        </div>
+
+        <header id="appHeader"
+            class="border border-slate-800 bg-slate-950 p-4 rounded-none mb-6 flex flex-col md:flex-row justify-between items-center gap-4 relative">
+            <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500"></div>
+            <div class="flex items-center gap-4">
+                <div class="w-3 h-3 bg-cyan-400 animate-pulse"></div>
+                <div>
+                    <h1 class="text-base font-black tracking-widest text-cyan-400">MONITORING_UNIT // METRICS</h1>
+                    <p class="text-[10px] text-slate-500 uppercase">Tizim va Server Xavfsizligi Haqida Real Vaqtli
+                        Telemetriya</p>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap items-center gap-4 bg-slate-900/50 p-2 border border-slate-800/80 text-[11px]">
+                <div><span class="text-slate-500">SYS_LOAD:</span> <span id="cpuLoad"
+                        class="text-cyan-400 font-bold">24.7%</span></div>
+                <div class="h-3 w-px bg-slate-800"></div>
+                <div><span class="text-slate-500">INTERFACE_MODE:</span> <span id="themeStatus"
+                        class="text-purple-400 font-bold">CYBER_DARK_CORE</span></div>
+                <div class="h-3 w-px bg-slate-800"></div>
+                <div id="liveClock" class="font-bold text-emerald-400 tracking-widest">00:00:00</div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+
+            <div class="lg:col-span-5 flex flex-col gap-6">
+
+                <div id="profileCard" class="border border-slate-800 bg-slate-950 p-5 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 text-[7px] text-slate-700 p-1">FILE_ID_8832</div>
+                    <div class="flex items-center gap-4 border-b border-slate-900 pb-4 mb-4">
+                        <div class="w-16 h-16 relative flex-shrink-0 border border-cyan-500/50 p-1 bg-slate-900">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"
+                                alt="Jasmina" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h2 class="text-base font-black text-slate-200">JASMINA AMINBOYEVA</h2>
+                            <p class="text-[10px] text-cyan-400 font-bold uppercase tracking-wider">ID: #99281-UZB</p>
+                            <p class="text-[10px] text-purple-400">FRONTEND CORE ENGINEER</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 text-[11px] font-mono text-slate-400">
+                        <div class="flex justify-between border-b border-slate-900/60 pb-1">
+                            <span>NODE_LOCATION:</span><span class="text-slate-200 font-bold">KOSMOS, XIVA</span></div>
+                        <div class="flex justify-between border-b border-slate-900/60 pb-1">
+                            <span>COMM_CHANNEL:</span><span class="text-cyan-400">+998 90 123 45 67</span></div>
+                        <div class="flex justify-between border-b border-slate-900/60 pb-1">
+                            <span>SECURE_MAIL:</span><span class="text-purple-400">jasmina@gmail.com</span></div>
+                        <div class="flex justify-between border-b border-slate-900/60 pb-1">
+                            <span>TRAINING_CAMP:</span><span class="text-slate-200">XIVA IT PARK TERMINAL</span></div>
+                        <div class="flex justify-between"><span>VERIFIED_CRED:</span><span
+                                class="text-emerald-400 font-bold">GOOGLE AI ESSENTIALS</span></div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex flex-col gap-6">
+                        <div id="settingsCard" class="border border-slate-800 bg-slate-950 p-4">
+                            <span class="block text-[9px] text-cyan-400 font-black mb-3 tracking-widest">//
+                                MATRIX_PARAMETER_SETTINGS</span>
+                            <div class="space-y-3 text-[11px]">
+                                <div>
+                                    <span class="block text-slate-500 mb-1.5 uppercase text-[10px]">Matrix oqimi
+                                        rejimi:</span>
+                                    <div class="grid grid-cols-2 gap-1">
+                                        <button onclick="setTheme('dark')" id="btnDark"
+                                            class="border border-cyan-500 bg-cyan-950/60 text-cyan-400 text-[10px] py-1 px-2 font-bold transition-all">CORE_DARK</button>
+                                        <button onclick="setTheme('light')" id="btnLight"
+                                            class="border border-slate-800 bg-slate-900 text-slate-500 text-[10px] py-1 px-2 transition-all hover:border-slate-600">CORE_LIGHT</button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-slate-500 mb-1 uppercase text-[10px]">Kvant skanerlash
+                                        tezligi:</label>
+                                    <select id="matrixSpeed" onchange="changeMatrixSpeed()"
+                                        class="w-full bg-slate-900 border border-slate-800 p-1.5 text-[11px] text-cyan-400 focus:outline-none focus:border-cyan-500">
+                                        <option value="50">50ms (SLOW_STREAM)</option>
+                                        <option value="33" selected>33ms (NORMAL_STREAM)</option>
+                                        <option value="15">15ms (BURST_STREAM)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="terminalCard"
+                            class="border border-slate-800 bg-slate-950 p-3 flex-1 flex flex-col min-h-[160px]">
+                            <div class="flex items-center justify-between border-b border-slate-900 pb-1.5 mb-1.5">
+                                <span class="text-[9px] text-slate-500 tracking-widest">LOG_STREAM.SH</span>
+                                <div class="w-1.5 h-1.5 bg-emerald-500 animate-pulse"></div>
+                            </div>
+                            <div id="terminalOutput"
+                                class="text-[10px] space-y-1 flex-1 overflow-y-auto custom-scroll h-20 text-emerald-400 font-mono">
+                                <div>[SYS_INIT]: Murakkab arxitektura yuklandi.</div>
+                                <div>[SYS_WARN]: Oddiylik filtrlari o'chirildi.</div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-1.5 mt-2">
+                                <button onclick="runCmd('about')"
+                                    class="bg-slate-900 text-[9px] p-1 border border-slate-800 text-left hover:border-cyan-500 text-slate-400">[INF_LOG]</button>
+                                <button onclick="runCmd('clear')"
+                                    class="bg-slate-900 text-[9px] p-1 border border-slate-800 text-center hover:border-rose-500 text-rose-400">[FLUSH_LOG]</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="calculatorCard"
+                        class="bg-[#0a0f1d] border border-slate-800 p-4 rounded-xl relative overflow-hidden glow-effect">
+                        <div class="flex justify-between items-center mb-3">
+                            <span
+                                class="text-[8px] font-black text-cyan-500 tracking-[0.2em] uppercase">Q_CALC_v4</span>
+                            <div class="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></div>
+                        </div>
+
+                        <input type="text" id="calcScreen" readonly
+                            class="w-full bg-slate-950 text-emerald-400 text-right p-2 rounded-lg border border-slate-800 text-xl font-black mb-3 focus:outline-none"
+                            value="0">
+
+                        <div class="grid grid-cols-4 gap-1.5 text-[10px]">
+                            <button onclick="clearCalc()"
+                                class="col-span-2 bg-slate-900 border border-slate-700 text-rose-500 rounded p-2 hover:bg-rose-950">CLR</button>
+                            <button onclick="pressCalc('/')"
+                                class="bg-slate-900 border border-slate-700 text-cyan-400 rounded p-2">/</button>
+                            <button onclick="pressCalc('*')"
+                                class="bg-slate-900 border border-slate-700 text-cyan-400 rounded p-2">*</button>
+
+                            <button onclick="pressCalc('7')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">7</button>
+                            <button onclick="pressCalc('8')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">8</button>
+                            <button onclick="pressCalc('9')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">9</button>
+                            <button onclick="pressCalc('-')"
+                                class="bg-slate-900 border border-slate-700 text-cyan-400 rounded p-2">-</button>
+
+                            <button onclick="pressCalc('4')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">4</button>
+                            <button onclick="pressCalc('5')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">5</button>
+                            <button onclick="pressCalc('6')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">6</button>
+                            <button onclick="pressCalc('+')"
+                                class="bg-slate-900 border border-slate-700 text-cyan-400 rounded p-2">+</button>
+
+                            <button onclick="pressCalc('1')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">1</button>
+                            <button onclick="pressCalc('2')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">2</button>
+                            <button onclick="pressCalc('3')"
+                                class="bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">3</button>
+                            <button onclick="calculateResult()"
+                                class="row-span-2 bg-purple-600 text-white rounded p-2 font-black">=</button>
+
+                            <button onclick="pressCalc('0')"
+                                class="col-span-3 bg-slate-900 border border-slate-700 text-slate-200 rounded p-2">0</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 flex flex-col gap-6">
+
+                <section id="projectsSection" class="border border-slate-800 bg-slate-950/40 p-5 relative scroll-mt-20">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xs font-black tracking-widest text-slate-400">// ARCHITECTURE_DEPLOY_UNITS</h2>
+                        <span
+                            class="text-[9px] bg-cyan-950/60 text-cyan-400 px-2 py-0.5 border border-cyan-800 uppercase font-bold">SYSTEM_STABLE</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-slate-950 p-4 border border-slate-800 relative group">
+                            <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-cyan-500"></div>
+                            <div class="text-[9px] text-cyan-400 font-mono mb-1">STATION_01 // PUBLIC</div>
+                            <h3 class="text-sm font-black text-white uppercase flex justify-between items-center">
+                                <span>Xiva IT Park</span> <a href="#"
+                                    class="text-[10px] text-slate-500 font-normal hover:text-cyan-400">[LINK_V]</a></h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Tashkilot
+                                infratuzilmasi, o'quv guruhlari va dars ma'lumotlar jadvallarini boshqarish paneli
+                                modeli.</p>
+                        </div>
+                        <div class="bg-slate-950 p-4 border border-slate-800 relative group">
+                            <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-purple-500"></div>
+                            <div class="text-[9px] text-purple-400 font-mono mb-1">STATION_02 // B2C_ECOM</div>
+                            <h3 class="text-sm font-black text-white uppercase flex justify-between items-center">
+                                <span>Tech Market</span> <a href="#"
+                                    class="text-[10px] text-slate-500 font-normal hover:text-purple-400">[LINK_V]</a>
+                            </h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Yuqori tezlikda
+                                yuklanuvchi algoritmik filtrlar va mahsulot massivlari bilan integratsiyalashgan do'kon.
+                            </p>
+                        </div>
+                        <div class="bg-slate-950 p-4 border border-slate-800 relative group">
+                            <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-amber-500"></div>
+                            <div class="text-[9px] text-amber-400 font-mono mb-1">STATION_03 // CONTROL</div>
+                            <h3 class="text-sm font-black text-white uppercase flex justify-between items-center">
+                                <span>Cyber Dashboard</span> <a href="#"
+                                    class="text-[10px] text-slate-500 font-normal hover:text-amber-400">[LINK_V]</a>
+                            </h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Kiber tahdid
+                                analizatorlari va ma'lumotlar oqimini vizuallashtiruvchi admin boshqaruv stansiyasi.</p>
+                        </div>
+                        <div class="bg-slate-950 p-4 border border-slate-800 relative group">
+                            <div class="absolute top-0 right-0 w-1.5 h-1.5 bg-emerald-500"></div>
+                            <div class="text-[9px] text-emerald-400 font-mono mb-1">STATION_04 // VIRTUAL</div>
+                            <h3 class="text-sm font-black text-white uppercase flex justify-between items-center">
+                                <span>Laboratory App</span> <a href="#"
+                                    class="text-[10px] text-slate-500 font-normal hover:text-emerald-400">[LINK_V]</a>
+                            </h3>
+                            <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Kompleks matematik
+                                modullar va koordinata o'qlarida real vaqtli o'zgarishlar simulyatori.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="gameSection" style="height: 100%;"
+                    class="border  border-slate-800 bg-slate-950 p-5 relative scroll-mt-20">
+                    <div
+                        class="absolute top-0 left-0 px-2 py-0.5 bg-amber-500 text-slate-950 text-[8px] font-black uppercase">
+                        SIMULATOR_GATE</div>
+                    <h2 class="text-xs font-black tracking-widest text-slate-400 mt-2 mb-1">//
+                        SECURITY_INTEGRITY_STATION</h2>
+                    <p class="text-[11px] text-slate-500 mb-3 font-mono">Tizimni sinash tugmasini har bosganda kiber
+                        quvvat paketlari generatsiyasi amalga oshiriladi:</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-center">
+                        <div class="bg-slate-900 p-3 border border-slate-800 text-center">
+                            <div class="text-[9px] text-slate-500 uppercase font-mono">CORE_BUFFER_RATIO</div>
+                            <div id="hackScore" class="text-2xl font-black text-cyan-400 tracking-widest mt-0.5">0%
+                            </div>
+                        </div>
+                        <div class="md:col-span-2 flex flex-col gap-2">
+                            <button onclick="triggerHack()"
+                                class="bg-slate-900 border border-cyan-500 text-cyan-400 text-[10px] font-black py-3 px-4 active:bg-cyan-500 active:text-slate-950 transition-all uppercase tracking-widest">
+                                [ INJECT_CYBER_BUFFER_PACKET ]
+                            </button>
+                            <div id="hackStatus" class="text-[9px] text-center text-slate-500 font-mono">
+                                SECURE_STATIC_LINE // FIREWALL_ACTIVE</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+
+        <section id="courseraSection" class="border border-slate-800 bg-slate-950/20 p-5 relative scroll-mt-20 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xs font-black tracking-widest text-slate-400">// ACADEMIC_CREDENTIAL_VAULT</h2>
+                <span
+                    class="text-[9px] bg-purple-950/60 text-purple-400 px-2 py-0.5 border border-purple-800 font-bold uppercase">VERIFICATION_PASS</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-950 p-4 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-full h-24 border border-slate-900 bg-white p-2 flex items-center justify-center relative">
+                            <div class="absolute top-1 left-1 text-[7px] text-slate-400 font-mono">SYS_AUTH_G</div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg"
+                                alt="Google Logo" class="w-auto h-8 object-contain">
+                        </div>
+                        <div class="text-[9px] text-cyan-400 font-bold uppercase mt-2 mb-0.5">Google AI Track</div>
+                        <h3 class="text-xs font-bold text-white uppercase font-mono">Google AI Essentials</h3>
+                        <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Prompt engineering,
+                            neyrotarmoqlar va generativ modellar optimizatsiyasi ko'nikmalari.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-900/60 flex justify-between items-center text-[10px]">
+                        <span class="text-emerald-400 font-bold">[COMPLETED]</span>
+                        <span class="text-purple-400">ID: #G-8821</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 p-4 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-full h-24 border border-slate-900 bg-[#232f3e] p-2 flex items-center justify-center relative">
+                            <div class="absolute top-1 left-1 text-[7px] text-slate-400 font-mono">SYS_AUTH_A</div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg"
+                                alt="AWS Logo" class="w-auto h-10 object-contain invert brightness-0">
+                        </div>
+                        <div class="text-[9px] text-purple-400 font-bold uppercase mt-2 mb-0.5">Cloud Architecture</div>
+                        <h3 class="text-xs font-bold text-white uppercase font-mono">AWS Cloud Practitioner</h3>
+                        <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Global infratuzilmalar,
+                            kiber bulutlar arxitekturasi va ma'lumotlar ombori protokollari.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-900/60 flex justify-between items-center text-[10px]">
+                        <span class="text-emerald-400 font-bold">[COMPLETED]</span>
+                        <span class="text-purple-400">ID: #A-4491</span>
+                    </div>
+                </div>
+
+                <div class="bg-slate-950 p-4 border border-slate-800 flex flex-col justify-between">
+                    <div>
+                        <div
+                            class="w-full h-24 border border-slate-900 bg-[#0064e0] p-2 flex items-center justify-center relative">
+                            <div class="absolute top-1 left-1 text-[7px] text-slate-200 font-mono">SYS_AUTH_M</div>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Meta_Platforms_Inc._logo.svg"
+                                alt="Meta Logo" class="w-auto h-7 object-contain invert">
+                        </div>
+                        <div class="text-[9px] text-amber-400 font-bold uppercase mt-2 mb-0.5">Meta Career Track</div>
+                        <h3 class="text-xs font-bold text-white uppercase font-mono">Front-End Developer</h3>
+                        <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed font-mono">Murakkab foydalanuvchi
+                            interfeyslari (UI) muhandisligi va interaktiv veb tizimlar poydevori.</p>
+                    </div>
+                    <div class="mt-4 pt-2 border-t border-slate-900/60 flex justify-between items-center text-[10px]">
+                        <span class="text-amber-400 font-bold">[IN_PROGRESS]</span>
+                        <span class="text-slate-600">PENDING...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="personalInfoForm" class="border border-slate-800 bg-slate-950 p-5 relative scroll-mt-20 w-full">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xs font-black tracking-widest text-slate-400">// ENCRYPTION_REGISTRATION_GATEway</h2>
+                <span
+                    class="text-[9px] bg-rose-950/60 text-rose-400 px-2 py-0.5 border border-rose-800 font-bold uppercase">SECURE_FORM</span>
+            </div>
+
+            <form id="profileForm" onsubmit="saveProfileData(event)" class="w-full space-y-4 font-mono">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+                    <div>
+                        <label class="block text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Ism kodi
+                            (string):</label>
+                        <input type="text" id="userName" required placeholder="Kiritish..."
+                            class="w-full bg-slate-900 border border-slate-800 p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Familiya kodi
+                            (string):</label>
+                        <input type="text" id="userSurname" required placeholder="Kiritish..."
+                            class="w-full bg-slate-900 border border-slate-800 p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Yoshi
+                            (int):</label>
+                        <input type="number" id="userAge" required placeholder="Kiritish..."
+                            class="w-full bg-slate-900 border border-slate-800 p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Kun
+                            (day_int):</label>
+                        <input type="number" id="userBirthDay" required placeholder="1-31" min="1" max="31"
+                            class="w-full bg-slate-900 border border-slate-800 p-2.5 text-xs text-slate-200 focus:outline-none focus:border-cyan-500 transition-all">
+                    </div>
+
+                    <div>
+                        <label class="block text-[10px] text-slate-500 mb-1 uppercase tracking-wider">Oy
+                            (enum_month):</label>
+                        <select id="userBirthMonth" required
+                            class="w-full bg-slate-900 border border-slate-800 p-2.5 text-xs text-cyan-400 focus:outline-none focus:border-cyan-500 transition-all">
+                            <option value="" disabled selected>Tanlang</option>
+                            <option value="Yanvar">Yanvar</option>
+                            <option value="Fevral">Fevral</option>
+                            <option value="Mart">Mart</option>
+                            <option value="Aprel">Aprel</option>
+                            <option value="May">May</option>
+                            <option value="Iyun">Iyun</option>
+                            <option value="Iyul">Iyul</option>
+                            <option value="Avgust">Avgust</option>
+                            <option value="Sentabr">Sentabr</option>
+                            <option value="Oktabr">Oktabr</option>
+                            <option value="Noyabr">Noyabr</option>
+                            <option value="Dekabr">Dekabr</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div
+                    class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-900">
+                    <button type="button" onclick="clearFormFields()"
+                        class="w-full sm:w-auto order-2 sm:order-1 bg-slate-900 border border-slate-800 text-slate-500 hover:text-rose-400 hover:border-rose-500 text-[10px] font-black py-2.5 px-4 transition-all uppercase tracking-wider">
+                        [ !! WIPE_FIELDS_BUFFER ]
+                    </button>
+                    <button type="submit"
+                        class="w-full sm:w-auto order-1 sm:order-2 bg-cyan-950/60 border border-cyan-400 text-cyan-400 text-[10px] font-black py-2.5 px-6 transition-all uppercase tracking-wider">
+                        [ &gt;&gt; COMMIT_DATA_PACKET ]
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 py-4 border-t border-slate-900 mt-6">
+            <footer class="text-[10px] text-slate-600 font-mono tracking-tight">
+                <p>// DATA_INTEGRITY_STREAM_TERMINATED // TERMINAL_ID_9901X // YEAR_2026</p>
+            </footer>
+            <button onclick="downloadPDFReport()"
+                class="bg-slate-900 border border-cyan-500 text-cyan-400 text-[10px] font-black py-2 px-4 transition-all tracking-widest hover:bg-cyan-500 hover:text-slate-950">
+                [ DOWNLOAD_ENCRYPTED_LOG_REPORT.PDF ]
+            </button>
+        </div>
+    </div>
+
+<section id="scannerSection"
+    class="border border-cyan-500/30 bg-slate-950/40 p-6 relative overflow-hidden scroll-mt-20">
+
+    <!-- Corners -->
+    <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-cyan-400"></div>
+    <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-cyan-400"></div>
+    <div class="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-cyan-400"></div>
+    <div class="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-cyan-400"></div>
+
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl md:text-3xl font-black text-cyan-400 tracking-widest cyber-glow-text">
+            &gt; DYNAMIC CORE SCANNER_
+        </h2>
+
+        <div id="scannerClock" class="text-cyan-400 text-sm font-bold">
+            00:00:00
+        </div>
+    </div>
+
+    <p class="text-slate-400 text-xs max-w-3xl mb-6 leading-relaxed">
+        Ushbu kiber modul foydalanuvchining qurilmasi va brauzer xarakteristikalarini
+        real vaqt rejimida tahlil qiladi.
+    </p>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- LEFT -->
+        <div class="border border-cyan-500/20 bg-slate-950 p-6 flex flex-col items-center justify-center">
+
+            <div class="scanner-circle">
+                <div class="scanner-line"></div>
+            </div>
+
+            <div class="mt-6 text-cyan-400 font-black tracking-widest text-sm">
+                SYSTEM IDLE
+            </div>
+
+            <div class="w-full bg-slate-900 h-2 mt-6 overflow-hidden border border-cyan-500/20">
+                <div id="scanProgress"
+                    class="h-full bg-cyan-400 transition-all duration-300"
+                    style="width:0%">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="border border-cyan-500/20 bg-slate-950 p-5">
+
+            <div class="flex items-center gap-2 mb-4">
+                <div class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
+                <span class="text-cyan-400 font-black tracking-widest text-sm">
+                    LIVE DATA LOG:
+                </span>
+            </div>
+
+            <div id="scannerLogs"
+                class="h-64 overflow-y-auto custom-scroll text-[11px] font-mono text-emerald-400 space-y-2">
+            </div>
+
+            <button onclick="startScanner()"
+                class="mt-5 w-full py-3 border border-cyan-400 text-cyan-400 font-black tracking-widest hover:bg-cyan-400 hover:text-slate-950 transition-all duration-300">
+            Qurilmani    Ishlayotganini  tekshirish
+            </button>
+
+        </div>
+    </div>
+
+    <div class="text-right text-[9px] text-cyan-500 mt-3 tracking-widest">
+        DYNAMIC_SCANNER_v3.5
+    </div>
+
+</section>
+<!-- FILE UPLOAD SYSTEM -->
+<section class="max-w-5xl mx-auto my-8 px-6">
+
+    <div class="relative overflow-hidden rounded-3xl border border-cyan-500/30 bg-[#050816]/80 backdrop-blur-xl p-6">
+
+        <div class="absolute inset-0 bg-cyan-500/5 blur-3xl"></div>
+
+        <div class="relative z-10 mb-5">
+
+            <h2 class="text-2xl font-black text-cyan-400 tracking-widest cyber-glow-text uppercase">
+                Quantum Upload Core
+            </h2>
+
+            <p class="text-slate-500 mt-2 text-sm">
+                Sertifikatlar va professional rasmlarni yuklang.
+            </p>
+
+        </div>
+
+        <div id="dropZone"
+            class="relative z-10 group border-2 border-dashed border-cyan-500/40 rounded-[24px] p-8 md:p-10 transition-all duration-500 hover:border-fuchsia-500 hover:bg-fuchsia-500/5 overflow-hidden">
+
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500">
+                <div class="absolute inset-0 animate-pulse bg-gradient-to-r from-cyan-500/10 via-fuchsia-500/10 to-cyan-500/10"></div>
+            </div>
+
+            <input
+                type="file"
+                id="fileInput"
+                class="absolute inset-0 opacity-0 cursor-pointer z-20"
+                accept="image/*"
+                onchange="handleFile(event)"
+            >
+
+            <div class="relative z-10 flex flex-col items-center text-center">
+
+                <div class="relative mb-5">
+
+                    <div class="absolute inset-0 animate-ping rounded-full bg-cyan-500/20"></div>
+
+                    <div class="relative w-20 h-20 rounded-full border border-cyan-500 flex items-center justify-center bg-cyan-500/5 shadow-[0_0_40px_rgba(0,255,255,0.3)]">
+
+                        <span class="text-3xl text-cyan-400">
+                            ⬆
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <h3 class="text-xl md:text-2xl font-black text-white uppercase tracking-wider">
+                    Drag & Drop Files
+                </h3>
+
+                <p class="text-slate-500 mt-3 text-sm">
+                    Fayl tanlash uchun bosing
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- FILE INFO -->
+        <div id="fileInfo"
+            class="hidden relative z-10 mt-6 rounded-2xl border border-cyan-500/20 bg-black/40 p-4">
+
+            <div class="flex items-center justify-between flex-wrap gap-4">
+
+                <div>
+                    <h4 id="fileName"
+                        class="text-cyan-400 font-bold text-lg">
+                    </h4>
+
+                    <p id="fileSize"
+                        class="text-slate-500 text-sm mt-1">
+                    </p>
+                </div>
+
+                <div class="text-emerald-400 font-black tracking-widest">
+                    UPLOADED
+                </div>
+
+            </div>
+
+            <div class="mt-4 h-2 bg-slate-900 rounded-full overflow-hidden border border-cyan-500/20">
+
+                <div id="progressBar"
+                    class="h-full w-0 bg-gradient-to-r from-cyan-400 via-fuchsia-500 to-cyan-400 transition-all duration-700">
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- PREVIEW -->
+        <div class="relative z-10 mt-6 flex justify-center">
+
+            <img
+                id="previewImage"
+                class="hidden rounded-3xl border border-cyan-500/30 max-h-[260px] shadow-[0_0_50px_rgba(0,255,255,0.25)]"
+            >
+
+        </div>
+
+    </div>
+
+</section>
+<!-- MINI PREMIUM SKILLS SECTION -->
+<section class="max-w-4xl mx-auto my-10 px-4">
+
+    <div class="bg-[#070f1f]/90 border border-cyan-500/20 rounded-2xl p-6 shadow-[0_0_30px_rgba(0,255,255,0.08)]">
+
+        <!-- TITLE -->
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-black text-cyan-400 tracking-widest uppercase">
+                // Tech Stack
+            </h2>
+
+            <div class="px-3 py-1 text-[10px] border border-cyan-500/30 text-cyan-300 rounded-full">
+                SYSTEM ACTIVE
+            </div>
+        </div>
+
+        <!-- SKILLS -->
+        <div class="space-y-5">
+
+            <!-- HTML -->
+            <div>
+                <div class="flex justify-between mb-1 text-sm">
+                    <span class="flex items-center gap-2 font-bold text-orange-400">
+                        <i class="fa-brands fa-html5"></i> HTML5
+                    </span>
+                    <span class="text-cyan-300">95%</span>
+                </div>
+
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[95%] bg-gradient-to-r from-orange-500 to-orange-300 rounded-full shadow-[0_0_15px_orange]"></div>
+                </div>
+            </div>
+
+            <!-- CSS -->
+            <div>
+                <div class="flex justify-between mb-1 text-sm">
+                    <span class="flex items-center gap-2 font-bold text-blue-400">
+                        <i class="fa-brands fa-css3-alt"></i> CSS3
+                    </span>
+                    <span class="text-cyan-300">90%</span>
+                </div>
+
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[90%] bg-gradient-to-r from-blue-500 to-cyan-300 rounded-full shadow-[0_0_15px_cyan]"></div>
+                </div>
+            </div>
+
+            <!-- JS -->
+            <div>
+                <div class="flex justify-between mb-1 text-sm">
+                    <span class="flex items-center gap-2 font-bold text-yellow-300">
+                        <i class="fa-brands fa-js"></i> JavaScript
+                    </span>
+                    <span class="text-cyan-300">80%</span>
+                </div>
+
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[80%] bg-gradient-to-r from-yellow-400 to-yellow-200 rounded-full shadow-[0_0_15px_yellow]"></div>
+                </div>
+            </div>
+
+            <!-- Tailwind -->
+            <div>
+                <div class="flex justify-between mb-1 text-sm">
+                    <span class="flex items-center gap-2 font-bold text-cyan-300">
+                        <i class="fa-solid fa-wind"></i> TailwindCSS
+                    </span>
+                    <span class="text-cyan-300">92%</span>
+                </div>
+
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[92%] bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full shadow-[0_0_15px_cyan]"></div>
+                </div>
+            </div>
+
+            <!-- Bootstrap -->
+            <div>
+                <div class="flex justify-between mb-1 text-sm">
+                    <span class="flex items-center gap-2 font-bold text-purple-400">
+                        <i class="fa-brands fa-bootstrap"></i> Bootstrap
+                    </span>
+                    <span class="text-cyan-300">88%</span>
+                </div>
+
+                <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full w-[88%] bg-gradient-to-r from-purple-500 to-pink-400 rounded-full shadow-[0_0_15px_purple]"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+    <script>
+        function handleFile(event) {
+
+    const file = event.target.files[0];
+
+    if (!file) return;
+
+    const preview =
+        document.getElementById("previewImage");
+
+    const fileInfo =
+        document.getElementById("fileInfo");
+
+    const fileName =
+        document.getElementById("fileName");
+
+    const fileSize =
+        document.getElementById("fileSize");
+
+    const progressBar =
+        document.getElementById("progressBar");
+
+    // Show info
+    fileInfo.classList.remove("hidden");
+
+    fileName.textContent = file.name;
+
+    fileSize.textContent =
+        (file.size / 1024 / 1024).toFixed(2) + " MB";
+
+    // Progress animation
+    progressBar.style.width = "0%";
+
+    setTimeout(() => {
+        progressBar.style.width = "100%";
+    }, 200);
+
+    // Preview image
+    const reader = new FileReader();
+
+    reader.onload = function(e) {
+
+        preview.src = e.target.result;
+
+        preview.classList.remove("hidden");
+
+    };
+
+    reader.readAsDataURL(file);
+
+    // Terminal log
+    logTerminal("[QUANTUM_UPLOAD]: " + file.name + " successfully uploaded.");
+}
+        const canvas = document.getElementById('matrixCanvas');
+        const ctx = canvas.getContext('2d');
+        let matrixInterval;
+        let matrixSpeedTime = 33;
+
+        function initMatrix() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', initMatrix);
+        initMatrix();
+
+        const chars = '01XYZ789@#$';
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        let matrixColor = '#06b6d4';
+
+        function drawMatrix() {
+            if (document.body.classList.contains('bg-white')) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+            } else {
+                ctx.fillStyle = 'rgba(11, 19, 41, 0.05)';
+            }
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = matrixColor;
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        function startMatrix() {
+            clearInterval(matrixInterval);
+            matrixInterval = setInterval(drawMatrix, matrixSpeedTime);
+        }
+
+        function changeMatrixSpeed() {
+            const speedSelect = document.getElementById('matrixSpeed');
+            matrixSpeedTime = parseInt(speedSelect.value);
+            startMatrix();
+            logTerminal("[SYSTEM_EVENT]: Matrix sekund skanerlash o'zgartirildi: " + matrixSpeedTime + "ms");
+        }
+        startMatrix();
+
+        function setTheme(mode) {
+            const body = document.getElementById('appBody');
+            const themeStatus = document.getElementById('themeStatus');
+            if (mode === 'light') {
+                body.classList.remove('bg-[#0b1329]', 'text-slate-100');
+                body.classList.add('bg-white', 'text-slate-900');
+                matrixColor = '#0284c7';
+                themeStatus.textContent = "CYBER_LIGHT_CORE";
+                logTerminal("[CORE_THEME]: Yorug' kvant oqimi rejimi faollashdi.");
+            } else {
+                body.classList.remove('bg-white', 'text-slate-900');
+                body.classList.add('bg-[#0b1329]', 'text-slate-100');
+                matrixColor = '#06b6d4';
+                themeStatus.textContent = "CYBER_DARK_CORE";
+                logTerminal("[CORE_THEME]: Tungi quyuq kiber xavfsizlik yadrosi tiklandi.");
+            }
+        }
+
+        const calcScreen = document.getElementById('calcScreen');
+        function pressCalc(num) {
+            if (calcScreen.value === '0') {
+                calcScreen.value = num;
+            } else {
+                calcScreen.value += num;
+            }
+        }
+        function clearCalc() {
+            calcScreen.value = '0';
+        }
+        function calculateResult() {
+            try {
+                calcScreen.value = eval(calcScreen.value);
+                logTerminal("[CO_PROCESSOR]: Buyruq bajarildi, natija = " + calcScreen.value);
+            } catch (e) {
+                calcScreen.value = 'ERR_SYNTAX';
+            }
+        }
+
+        function logTerminal(message) {
+            const output = document.getElementById('terminalOutput');
+            if (output) {
+                const div = document.createElement('div');
+                div.textContent = message;
+                output.appendChild(div);
+                output.scrollTop = output.scrollHeight;
+            }
+        }
+
+        function runCmd(cmd) {
+            if (cmd === 'clear') {
+                document.getElementById('terminalOutput').innerHTML = '';
+            } else if (cmd === 'about') {
+                logTerminal("[INF_LOG]: Kernel build 4.0. Core Developer: Jasmina Aminboyeva (Xiva IT Park Node).");
+            }
+        }
+
+        let hackProgress = 0;
+        function triggerHack() {
+            if (hackProgress < 100) {
+                hackProgress += 20;
+                document.getElementById('hackScore').textContent = hackProgress + '%';
+                document.getElementById('hackStatus').textContent = "[WARN] Paket oqimi buferga quyilmoqda...";
+                logTerminal("[STREAM_INJECT]: Yuklanish o'sish nuqtasi: " + hackProgress + "%");
+            } else {
+                hackProgress = 0;
+                document.getElementById('hackScore').textContent = '0%';
+                document.getElementById('hackStatus').textContent = "CORE_STATIC_LINE // FIREWALL_ACTIVE";
+                logTerminal("[KERNEL]: Tizim xotira kesh disklari tozalandi.");
+            }
+        }
+
+        function saveProfileData(event) {
+            event.preventDefault();
+            const name = document.getElementById('userName').value;
+            logTerminal("[COMMIT_SUCCESS]: " + name.toUpperCase() + " ma'lumotlari kiber registrga muhrlandi.");
+            alert("Ma'lumotlar paketi kiritildi!");
+        }
+
+        function clearFormFields() {
+            document.getElementById('profileForm').reset();
+            logTerminal("[BUFFER_WIPE]: Anketa kiritish xotirasi butkul tozalandi.");
+        }
+
+        function downloadPDFReport() {
+            logTerminal("[REP_GEN]: Shifrlangan PDF log ma'lumotnomasi hisoblanmoqda...");
+            alert("PDF Generatsiya tizimi faollashtirildi!");
+        }
+
+        setInterval(() => {
+            const clock = document.getElementById('liveClock');
+            if (clock) {
+                const time = new Date();
+                clock.textContent = "SYS_TIME: " + time.toTimeString().split(' ')[0];
+            }
+        }, 1000);
+        function addScannerLog(text) {
+    const logContainer = document.getElementById("scannerLogs");
+
+    const div = document.createElement("div");
+
+    div.innerHTML = `[INFO] ${text}`;
+
+    logContainer.appendChild(div);
+
+    logContainer.scrollTop = logContainer.scrollHeight;
+}
+
+function startScanner() {
+
+    const progress = document.getElementById("scanProgress");
+
+    const logs = [
+        "Tizim diagnostikaga tayyor.",
+        "Brauzer yadrosi tekshirilmoqda...",
+        "Qurilma operativ xotirasi analiz qilinmoqda...",
+        "GPU render moduli tekshirildi.",
+        "Tarmoq xavfsizlik protokoli aktiv.",
+        "Cyber core signal barqaror.",
+        "Ma'lumot oqimi muvaffaqiyatli."
+    ];
+
+    let percent = 0;
+
+    progress.style.width = "0%";
+
+    document.getElementById("scannerLogs").innerHTML = "";
+
+    const interval = setInterval(() => {
+
+        if (percent >= 100) {
+            clearInterval(interval);
+
+            addScannerLog("SCAN COMPLETE // SYSTEM SECURE");
+
+            return;
+        }
+
+        percent += 15;
+
+        progress.style.width = percent + "%";
+
+        const randomLog =
+            logs[Math.floor(Math.random() * logs.length)];
+
+        addScannerLog(randomLog);
+
+    }, 700);
+}
+
+setInterval(() => {
+    const clock = document.getElementById("scannerClock");
+
+    if (clock) {
+        const time = new Date();
+
+        clock.textContent =
+            time.toTimeString().split(" ")[0];
+    }
+}, 1000);
+    </script>
+    
+</body>
+
+</html>
