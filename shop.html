@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Clothes Shop</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950 text-white">
+
+<!-- HEADER -->
+<header class="p-6 flex justify-between items-center">
+  <h1 class="text-3xl font-bold text-cyan-400">🛍 Clothes Shop</h1>
+
+  <div>
+    🧺 Cart: <span id="cartCount">0</span>
+  </div>
+</header>
+
+<!-- PRODUCTS -->
+<section class="max-w-6xl mx-auto p-6 grid md:grid-cols-3 gap-8">
+
+  <!-- 1 RUBASHKA -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://asset.openshop.uz/uploads/media/image/product/original/2026/03/02/2676c4df-2cf1-428f-9cec-ed7f5f912154.jpg"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Rubashka</h2>
+      <p class="text-gray-400">$20</p>
+      <button onclick="addToCart(20)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <!-- 2 KOYLAK -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0ubdjx-BCiB4nh1RPr_wFbXulqrW9DmpdmA&s"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Koylak</h2>
+      <p class="text-gray-400">$25</p>
+      <button onclick="addToCart(25)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <!-- 3 KOSTUM -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://olcha.uz/image/675x900/products/supplier/stores/1/2023-08-08/UlDZGxLa6ZQxeFqyBF6jS9QdEkWCRfbfu1cbYwpQJ5qUV50HHF6SWOOUM7BL.jpg"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Kostum</h2>
+      <p class="text-gray-400">$80</p>
+      <button onclick="addToCart(80)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <!-- 4 CHARUL (JACKET) -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ8NPD0qQ-9ksX3RHuRZjR4SyKtZgrbChCLw&s"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold"> Jacket</h2>
+      <p class="text-gray-400">$35</p>
+      <button onclick="addToCart(35)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <!-- 5 T-SHIRT -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://data.daryo.uz/media/2021/02/photo_2021-02-03_16-55-43.jpg"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold">T-Shirt</h2>
+      <p class="text-gray-400">$15</p>
+      <button onclick="addToCart(15)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+  <!-- 6 HOODIE -->
+  <div class="bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ9hWFasabBkYQkQcqXnxYl7zf-aTPxF8ZHDw&s"
+         class="h-56 w-full object-cover">
+
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Hoodie</h2>
+      <p class="text-gray-400">$30</p>
+      <button onclick="addToCart(30)" class="mt-3 bg-cyan-400 text-black px-4 py-2 rounded-xl">
+        Add
+      </button>
+    </div>
+  </div>
+
+</section>
+
+<!-- CART -->
+<section class="max-w-6xl mx-auto p-6 mt-10 bg-slate-900 rounded-2xl">
+
+  <h2 class="text-2xl font-bold text-cyan-400">🧺 Cart</h2>
+
+  <p class="mt-3">Total: $<span id="total">0</span></p>
+
+  <button onclick="clearCart()"
+    class="mt-4 bg-red-500 px-4 py-2 rounded-xl">
+    Clear
+  </button>
+
+</section>
+
+<script>
+let total = 0;
+let count = 0;
+
+function addToCart(price){
+  total += price;
+  count++;
+
+  document.getElementById("total").innerText = total;
+  document.getElementById("cartCount").innerText = count;
+}
+
+function clearCart(){
+  total = 0;
+  count = 0;
+
+  document.getElementById("total").innerText = 0;
+  document.getElementById("cartCount").innerText = 0;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Jasmina</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+
+body{
+    background:#050816;
+    overflow-x:hidden;
+    font-family:monospace;
+}
+
+#matrix{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    opacity:.15;
+}
+
+.cyber-glow{
+    text-shadow:
+    0 0 10px cyan,
+    0 0 25px cyan,
+    0 0 45px cyan;
+}
+
+.glass{
+    background:rgba(10,15,30,.75);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(0,255,255,.15);
+}
+
+.float{
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{
+        transform:translateY(0);
+    }
+    50%{
+        transform:translateY(-12px);
+    }
+}
+
+.typing{
+    overflow:hidden;
+    white-space:nowrap;
+    border-right:2px solid cyan;
+    animation:
+    typing 4s steps(30,end),
+    blink .7s infinite;
+}
+
+@keyframes typing{
+    from{width:0}
+    to{width:100%}
+}
+
+@keyframes blink{
+    50%{
+        border-color:transparent;
+    }
+}
+
+.stat-card{
+    transition:.4s;
+}
+
+.stat-card:hover{
+    transform:translateY(-10px);
+    box-shadow:
+    0 0 25px rgba(0,255,255,.2);
+}
+
+.neon-btn{
+    transition:.4s;
+}
+
+.neon-btn:hover{
+    background:cyan;
+    color:black;
+    box-shadow:
+    0 0 20px cyan,
+    0 0 50px cyan;
+}
+
+</style>
+
+</head>
+
+<body class="text-white">
+
+<canvas id="matrix"></canvas>
+
+<!-- BACK BUTTON -->
+<button onclick="history.back()"
+class="fixed top-5 left-5 z-50 px-5 py-2 border border-cyan-400 text-cyan-400 rounded-xl neon-btn font-bold">
+← ORQAGA
+</button>
+
+<section class="min-h-screen flex items-center justify-center px-6 py-20">
+
+<div class="max-w-7xl w-full grid lg:grid-cols-2 gap-14 items-center">
+
+<!-- IMAGE -->
+<div class="flex justify-center">
+
+<div class="relative float">
+
+<div class="absolute inset-0 bg-cyan-500 blur-[120px] opacity-20"></div>
+
+<img
+src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&q=80"
+alt="Profile"
+class="relative w-[260px] md:w-[300px] h-[340px] md:h-[400px] object-cover rounded-[35px] border border-cyan-500 shadow-[0_0_40px_rgba(0,255,255,.35)] hover:scale-105 transition-all duration-500">
+
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 border border-cyan-400 px-5 py-2 rounded-full text-cyan-400 font-bold">
+FRONTEND DEVELOPER
+</div>
+
+</div>
+
+</div>
+
+<!-- CONTENT -->
+<div>
+
+<p class="text-cyan-400 tracking-[6px] font-bold mb-4">
+ABOUT_ME
+</p>
+
+<h1 class="text-5xl md:text-7xl font-black">
+Aminboyeva
+<span class="text-cyan-400 cyber-glow">
+Jasmina
+</span>
+</h1>
+
+<div class="typing text-purple-400 mt-4 text-xl font-bold">
+Future AI Engineer & Computer Creator
+</div>
+
+<p class="text-slate-300 mt-8 leading-8 text-lg">
+
+Assalomu alaykum!
+
+Men Aminboyeva Jasmina.
+2013-yilda tug‘ilganman va hozirda 12 yoshdaman.
+
+IT Parkda dasturlashni o‘rganaman.
+
+Frontend Development, Sun'iy Intellekt va
+zamonaviy texnologiyalar meni juda qiziqtiradi.
+
+Kelajakdagi eng katta maqsadim —
+o‘zimning kompyuterlarimni yaratish,
+sun'iy intellekt texnologiyalarini rivojlantirish
+va dunyoga foydali innovatsion loyihalar yaratishdir.
+
+Har kuni yangi bilimlar o‘rganishga,
+o‘z ustimda ishlashga va professional dasturchi bo‘lishga intilaman.
+
+</p>
+
+<div class="grid md:grid-cols-2 gap-4 mt-10">
+
+<div class="glass p-4 rounded-2xl">
+<div class="text-slate-500 text-xs">EMAIL</div>
+<div class="text-cyan-400 font-bold">
+muzuzuz.ms@gmail.com
+</div>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<div class="text-slate-500 text-xs">PHONE</div>
+<div class="text-cyan-400 font-bold">
++998 94 939 41 51
+</div>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<div class="text-slate-500 text-xs">AGE</div>
+<div class="text-cyan-400 font-bold">
+12 YEARS OLD
+</div>
+</div>
+
+<div class="glass p-4 rounded-2xl">
+<div class="text-slate-500 text-xs">BIRTH YEAR</div>
+<div class="text-cyan-400 font-bold">
+2013
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- STATS -->
+<section class="max-w-7xl mx-auto px-6 pb-20">
+
+<h2 class="text-center text-4xl font-black text-cyan-400 mb-10">
+MY GOALS
+</h2>
+
+<div class="grid md:grid-cols-4 gap-6">
+
+<div class="glass stat-card rounded-3xl p-8 text-center">
+<div class="text-5xl">💻</div>
+<h3 class="text-cyan-400 font-black mt-4">PROGRAMMING</h3>
+<p class="text-slate-400 mt-2">
+Frontend va Full Stack dasturchi bo‘lish.
+</p>
+</div>
+
+<div class="glass stat-card rounded-3xl p-8 text-center">
+<div class="text-5xl">🤖</div>
+<h3 class="text-cyan-400 font-black mt-4">AI</h3>
+<p class="text-slate-400 mt-2">
+Sun'iy intellekt loyihalarini yaratish.
+</p>
+</div>
+
+<div class="glass stat-card rounded-3xl p-8 text-center">
+<div class="text-5xl">🖥️</div>
+<h3 class="text-cyan-400 font-black mt-4">COMPUTERS</h3>
+<p class="text-slate-400 mt-2">
+Kelajakda o‘z kompyuterlarimni yaratish.
+</p>
+</div>
+
+<div class="glass stat-card rounded-3xl p-8 text-center">
+<div class="text-5xl">🚀</div>
+<h3 class="text-cyan-400 font-black mt-4">SUCCESS</h3>
+<p class="text-slate-400 mt-2">
+Dunyo darajasidagi dasturchi bo‘lish.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+/* MATRIX EFFECT */
+
+const canvas=document.getElementById("matrix");
+const ctx=canvas.getContext("2d");
+
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+const letters="01JASMINAAI";
+const fontSize=16;
+const columns=canvas.width/fontSize;
+
+const drops=[];
+
+for(let i=0;i<columns;i++){
+drops[i]=1;
+}
+
+function draw(){
+
+ctx.fillStyle="rgba(5,8,22,.08)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.fillStyle="#00ffff";
+ctx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+const text=
+letters[Math.floor(Math.random()*letters.length)];
+
+ctx.fillText(
+text,
+i*fontSize,
+drops[i]*fontSize
+);
+
+if(
+drops[i]*fontSize>canvas.height &&
+Math.random()>0.975
+){
+drops[i]=0;
+}
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(draw,35);
+
+window.addEventListener("resize",()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+
+</script>
+
+</body>
+</html>
+```

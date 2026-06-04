@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>Food Menu</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-slate-950 text-white">
+
+<!-- HEADER -->
+<header class="text-center py-10">
+  <h1 class="text-5xl font-bold text-cyan-400">Food Menu 🍔</h1>
+  <p class="text-gray-400 mt-3">Mazali taomlar va ichimliklar</p>
+</header>
+
+<!-- FILTER BUTTONS -->
+<div class="flex justify-center gap-4 mb-10 flex-wrap">
+
+  <button onclick="filterFood('all')"
+    class="px-4 py-2 bg-cyan-400 text-black rounded-xl font-bold">
+    All
+  </button>
+
+  <button onclick="filterFood('burger')"
+    class="px-4 py-2 bg-white/10 rounded-xl">
+    Burger
+  </button>
+
+  <button onclick="filterFood('pizza')"
+    class="px-4 py-2 bg-white/10 rounded-xl">
+    Pizza
+  </button>
+
+  <button onclick="filterFood('drink')"
+    class="px-4 py-2 bg-white/10 rounded-xl">
+    Gazli suvlar
+  </button>
+
+</div>
+
+<!-- MENU -->
+<section class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+
+  <!-- BURGER -->
+  <div class="food-card burger bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1606755962773-d324e0a13086"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Cheese Burger</h2>
+      <p class="text-gray-400">Mazali burger</p>
+      <p class="text-cyan-400 mt-2">$5.99</p>
+    </div>
+  </div>
+
+  <div class="food-card burger bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Double Burger</h2>
+      <p class="text-gray-400">Double go‘shtli burger</p>
+      <p class="text-cyan-400 mt-2">$7.50</p>
+    </div>
+  </div>
+
+  <!-- PIZZA -->
+  <div class="food-card pizza bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://avatars.mds.yandex.net/get-vertis-journal/3934100/52e2da20-4226-46c6-8bcb-bf48560f7288.jpeg/1600x1600"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Pepperoni Pizza</h2>
+      <p class="text-gray-400">Issiq va mazali pizza</p>
+      <p class="text-cyan-400 mt-2">$8.99</p>
+    </div>
+  </div>
+
+  <div class="food-card pizza bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Cheese Pizza</h2>
+      <p class="text-gray-400">Oddiy cheese pizza</p>
+      <p class="text-cyan-400 mt-2">$6.99</p>
+    </div>
+  </div>
+
+  <!-- DRINK (GAZLI SUVLAR) -->
+  <div class="food-card drink bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://images.unsplash.com/photo-1581006852262-e4307cf6283a"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Coca Cola</h2>
+      <p class="text-gray-400">Gazli ichimlik</p>
+      <p class="text-cyan-400 mt-2">$1.50</p>
+    </div>
+  </div>
+
+  <div class="food-card drink bg-slate-900 rounded-2xl overflow-hidden">
+    <img src="https://www.shutterstock.com/image-photo/poznan-pol-apr-02-2025-260nw-2609175503.jpg"
+         class="h-56 w-full object-cover">
+    <div class="p-5">
+      <h2 class="text-xl font-bold">Sprite</h2>
+      <p class="text-gray-400">Limonli gazli suv</p>
+      <p class="text-cyan-400 mt-2">$1.30</p>
+    </div>
+  </div>
+
+</section>
+
+<!-- JS FILTER -->
+<script>
+function filterFood(category){
+
+  let items = document.querySelectorAll(".food-card");
+
+  items.forEach(item => {
+
+    if(category === "all"){
+      item.style.display = "block";
+    }
+    else if(item.classList.contains(category)){
+      item.style.display = "block";
+    } else {
+      item.style.display = "none";
+    }
+
+  });
+
+}
+</script>
+
+</body>
+</html>
