@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasmina Aminboyeva | Portfolio CV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white font-sans p-4 md:p-10">
+
+    <div class="max-w-4xl mx-auto">
+        
+        <!-- Orqaga qaytish va Til tanlash -->
+        <div class="flex justify-between items-center mb-8">
+            <a href="index.html" class="flex items-center text-gray-400 hover:text-white transition px-4 py-2 border border-gray-700 rounded-lg bg-gray-800 hover:bg-gray-700">
+                <span class="mr-2">←</span> Orqaga
+            </a>
+            
+            <div class="flex gap-3">
+                <button onclick="changeLanguage('uz')" class="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 transition">O'Z</button>
+                <button onclick="changeLanguage('ru')" class="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 transition">RU</button>
+                <button onclick="changeLanguage('en')" class="px-4 py-1 border border-gray-600 rounded hover:bg-gray-700 transition">EN</button>
+            </div>
+        </div>
+
+        <!-- Yuqori qism: Ism va Status -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 border-b border-gray-700 pb-8">
+            <div>
+                <h1 class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-emerald-400">
+                    Jasmina Aminboyeva
+                </h1>
+                <p id="job-title" class="text-gray-400 text-lg mt-2 tracking-wide uppercase">Frontend Web Developer</p>
+            </div>
+            <div class="mt-6 md:mt-0 text-right">
+                <a href="mailto:muzuzuz.ms@gmail.com" class="block text-blue-400 hover:underline">muzuzuz.ms@gmail.com</a>
+                <p class="text-gray-500">+998 94 939 41 51</p>
+            </div>
+        </div>
+
+        <!-- Asosiy grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="md:col-span-2 space-y-8">
+                <!-- Profil -->
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                    <h2 id="prof-h" class="text-xl font-bold mb-4 text-emerald-400"># Profil</h2>
+                    <p id="prof-t" class="text-gray-300 leading-relaxed">
+                        Zamonaviy web-loyihalar uchun responsive va optimallashtirilgan interfeyslar yaratishga ixtisoslashganman. 
+                        Kod sifatiga va foydalanuvchi tajribasiga (UX) alohida e'tibor qarataman.
+                    </p>
+                </div>
+
+                <!-- Ko'nikmalar -->
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                    <h2 id="tech-h" class="text-xl font-bold mb-4 text-emerald-400"># Texnologiyalar</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-gray-700 px-3 py-1 rounded-md text-sm border border-gray-600">HTML5 / CSS3</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-md text-sm border border-gray-600">JavaScript (ES6+)</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-md text-sm border border-gray-600">Tailwind CSS</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-md text-sm border border-gray-600">Bootstrap</span>
+                        <span class="bg-gray-700 px-3 py-1 rounded-md text-sm border border-gray-600">Git / GitHub</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- O'ng tomon -->
+            <div class="space-y-8">
+                <!-- Tillar -->
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                    <h2 id="lang-h" class="text-lg font-bold mb-4 text-blue-400">Tillar</h2>
+                    <ul id="lang-list" class="space-y-3 text-sm text-gray-300">
+                        <li>O'zbek: <span class="text-white">Ona tili</span></li>
+                        <li>Rus: <span class="text-white">O'rta</span></li>
+                        <li>Ingliz: <span class="text-white">Beginner</span></li>
+                    </ul>
+                </div>
+
+                <!-- Havolalar -->
+                <div class="bg-gray-800 p-6 rounded-2xl border border-gray-700">
+                    <h2 id="link-h" class="text-lg font-bold mb-4 text-blue-400">Havolalar</h2>
+                    <a href="https://t.me/aminboyeva" class="block text-gray-300 hover:text-emerald-400 mb-2">→ Telegram</a>
+                    <a href="https://github.com/muzuzuzms-jpg" class="block text-gray-300 hover:text-emerald-400">→ GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const content = {
+            uz: { job: "Frontend Web Developer", profH: "# Profil", profT: "Zamonaviy web-loyihalar uchun responsive va optimallashtirilgan interfeyslar yaratishga ixtisoslashganman. Kod sifatiga va foydalanuvchi tajribasiga (UX) alohida e'tibor qarataman.", techH: "# Texnologiyalar", langH: "Tillar", langList: "<li>O'zbek: <span class='text-white'>Ona tili</span></li><li>Rus: <span class='text-white'>O'rta</span></li><li>Ingliz: <span class='text-white'>Beginner</span></li>", linkH: "Havolalar" },
+            ru: { job: "Frontend Веб-разработчик", profH: "# Профиль", profT: "Специализируюсь на создании адаптивных и оптимизированных интерфейсов для современных веб-проектов. Уделяю особое внимание качеству кода и пользовательскому опыту (UX).", techH: "# Технологии", langH: "Языки", langList: "<li>Узбекский: <span class='text-white'>Родной</span></li><li>Русский: <span class='text-white'>Средний</span></li><li>Английский: <span class='text-white'>Начальный</span></li>", linkH: "Ссылки" },
+            en: { job: "Frontend Web Developer", profH: "# Profile", profT: "Specializing in creating responsive and optimized interfaces for modern web projects. I pay special attention to code quality and user experience (UX).", techH: "# Technologies", langH: "Languages", langList: "<li>Uzbek: <span class='text-white'>Native</span></li><li>Russian: <span class='text-white'>Intermediate</span></li><li>English: <span class='text-white'>Beginner</span></li>", linkH: "Links" }
+        };
+
+        function changeLanguage(lang) {
+            document.getElementById('job-title').innerText = content[lang].job;
+            document.getElementById('prof-h').innerText = content[lang].profH;
+            document.getElementById('prof-t').innerText = content[lang].profT;
+            document.getElementById('tech-h').innerText = content[lang].techH;
+            document.getElementById('lang-h').innerText = content[lang].langH;
+            document.getElementById('lang-list').innerHTML = content[lang].langList;
+            document.getElementById('link-h').innerText = content[lang].linkH;
+        }
+    </script>
+</body>
+</html>
